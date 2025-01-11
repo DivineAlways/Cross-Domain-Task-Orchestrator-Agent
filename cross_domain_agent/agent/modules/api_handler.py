@@ -59,10 +59,24 @@ class ApiHandler:
         try:
             # Format location query and get coordinates
             from urllib.parse import quote
-            # Split city and state/country if present
-            parts = [part.strip() for part in location.split(',')]
-            # Quote each part separately and rejoin with comma
-            formatted_location = ','.join(quote(part) for part in parts)
+            if location is None:
+                location = self.default_location
+                
+            # Clean up the location string
+            location = location.strip()
+            
+            # For US locations, ensure proper format: "City, ST"
+            if ',' in location:
+                city, state = [part.strip() for part in location.split(',', 1)]
+                if len(state) == 2:  # State abbreviation
+                    formatted_location = f"{city},{state}"
+                else:
+                    formatted_location = location
+            else:
+                formatted_location = location
+                
+            # URL encode the entire location string
+            formatted_location = quote(formatted_location)
             geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={formatted_location}&limit=1&appid={self.weather_api_key}"
             geo_response = requests.get(geocoding_url)
             geo_response.raise_for_status()
