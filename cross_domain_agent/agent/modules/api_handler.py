@@ -8,6 +8,7 @@ class ApiHandler:
         self.base_url = config['api_base_url']
         # Placeholder for authentication logic
         self.auth_token = None
+        self.weather_api_key = config.get('weather_api_key')
 
     def authenticate(self):
         """
@@ -15,7 +16,7 @@ class ApiHandler:
         """
         print("Authenticating with API...")
         # Add authentication logic here
-        self.auth_token = "test_token" # Example token
+        self.auth_token = "test_token"  # Example token
         return True
 
     def send_request(self, endpoint, method="GET", params=None, data=None, headers=None):
@@ -33,6 +34,23 @@ class ApiHandler:
             return response.json()
         except requests.exceptions.RequestException as e:
             print(f"API request failed: {e}")
+            return None
+
+    def get_weather(self, location):
+        """
+        Retrieves the current weather for a given location using OpenWeatherMap API.
+        """
+        if not self.weather_api_key:
+            print("Weather API key not found in config.")
+            return None
+        
+        weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={self.weather_api_key}&units=metric"
+        try:
+            response = requests.get(weather_url)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Weather API request failed: {e}")
             return None
 
     def process_response(self, response):
