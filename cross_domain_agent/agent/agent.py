@@ -1,9 +1,9 @@
-from agent.modules import TaskPlanner, ApiHandler, OmniverseInterface, GeminiModule
+from agent.modules import TaskPlanner, ApiHandler, OmniverseInterface, nlp_module
 import time
 
 class Agent:
     def __init__(self):
-        self.nlp_module = GeminiModule()
+        self.nlp_module = nlp_module.GeminiModule()
         self.task_planner = TaskPlanner()
         self.api_handler = ApiHandler()
         self.omniverse_interface = OmniverseInterface()
