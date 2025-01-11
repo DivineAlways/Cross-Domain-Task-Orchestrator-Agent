@@ -44,9 +44,10 @@ class TaskPlanner:
                 {"action": "call_api", "params": {}},
                 {"action": "process_api_response", "params": {}}
             ]
-        elif "what is the weather" in user_input.lower():
+        elif intent == "get_weather":
+            location = entities.get("location")
             plan = [
-                {"action": "get_weather", "params": {}}
+                {"action": "get_weather", "params": {"location": location}}
             ]
         else:
             plan = [{"action": "unknown_task", "params": {}}]
