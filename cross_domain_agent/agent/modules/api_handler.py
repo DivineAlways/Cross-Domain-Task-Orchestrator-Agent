@@ -64,35 +64,32 @@ class ApiHandler:
                 
             # Clean up the location string
             location = location.strip()
-            
-            # Debug print
             print(f"Processing location: '{location}'")
             
-            # For US locations, ensure proper format: "City, ST"
+            # Format the location query
             if ',' in location:
-                city, state = [part.strip() for part in location.split(',', 1)]
-                formatted_location = f"{city},{state}"
-                print(f"Split into city: '{city}', state: '{state}'")
+                parts = [part.strip() for part in location.split(',')]
+                # For US locations with state code
+                if len(parts) == 2 and len(parts[1]) == 2:
+                    formatted_location = f"{parts[0]},{parts[1]},US"
+                else:
+                    formatted_location = ','.join(parts)
             else:
                 formatted_location = location
-                
-            # URL encode the entire location string
-            encoded_location = quote(formatted_location)
-            print(f"Encoded location: '{encoded_location}'")
             
-            # Test API key first
-            test_url = f"https://api.openweathermap.org/data/2.5/weather?q=London&appid={self.weather_api_key}"
-            test_response = requests.get(test_url)
-            if test_response.status_code == 401:
-                print("ERROR: Invalid API key or unauthorized access")
-                return None
+            # URL encode the location string
+            encoded_location = quote(formatted_location)
+            print(f"Formatted location query: '{formatted_location}'")
             
             # Make geocoding request
             geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={encoded_location}&limit=1&appid={self.weather_api_key}"
-            print(f"Making geocoding request...")
+            print(f"Fetching coordinates...")
             geo_response = requests.get(geocoding_url)
             
-            if geo_response.status_code != 200:
+            if geo_response.status_code == 401:
+                print("ERROR: Invalid API key or unauthorized access")
+                return None
+            elif geo_response.status_code != 200:
                 print(f"Geocoding API error: {geo_response.status_code}")
                 print(f"Response: {geo_response.text}")
                 return None
@@ -100,10 +97,11 @@ class ApiHandler:
             location_data = geo_response.json()
             
             if not location_data:
-                print(f"Location '{location}' not found")
+                print(f"Could not find location: '{formatted_location}'")
                 print("Tips:")
-                print("- For US cities, use format: 'City, ST' (e.g. 'Atlanta, GA')")
-                print("- For international cities, try: 'City, Country' (e.g. 'London, UK')")
+                print("- For US cities: 'City, ST' (e.g. 'Atlanta, GA')")
+                print("- For international cities: 'City, Country' (e.g. 'London, GB' or 'Paris, France')")
+                print("- For UK cities, use GB as country code (e.g. 'London, GB')")
                 print("- Check spelling and try again")
                 return None
                 
