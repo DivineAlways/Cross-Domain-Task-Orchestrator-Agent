@@ -1,0 +1,7 @@
+README.md
+setup.py
+cross_domain_agent.egg-info/PKG-INFO
+cross_domain_agent.egg-info/SOURCES.txt
+cross_domain_agent.egg-info/dependency_links.txt
+cross_domain_agent.egg-info/requires.txt
+cross_domain_agent.egg-info/top_level.txt
