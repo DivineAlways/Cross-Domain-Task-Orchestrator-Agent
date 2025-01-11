@@ -29,6 +29,9 @@ Possible intents are:
 - book_flight
 - get_time
 - general_query
+- set_alarm
+- find_restaurant
+- play_music
 - unknown
 
 Respond with the intent only, no other text. For example:
@@ -43,6 +46,15 @@ Response: general_query
 
 Input: What's the current time?
 Response: get_time
+
+Input: Set an alarm for 6 AM tomorrow.
+Response: set_alarm
+
+Input: Find Italian restaurants near me.
+Response: find_restaurant
+
+Input: Play some jazz music.
+Response: play_music
 """
         response = self.model.generate_content(prompt)
         return response.text.strip()
