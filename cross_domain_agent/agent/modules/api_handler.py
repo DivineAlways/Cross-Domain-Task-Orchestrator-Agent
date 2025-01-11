@@ -58,7 +58,8 @@ class ApiHandler:
         
         try:
             # Format location query and get coordinates
-            formatted_location = location.replace(' ', '+')
+            from urllib.parse import quote
+            formatted_location = quote(location)
             geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={formatted_location}&limit=1&appid={self.weather_api_key}"
             geo_response = requests.get(geocoding_url)
             geo_response.raise_for_status()
