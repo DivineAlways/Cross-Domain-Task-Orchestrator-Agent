@@ -39,7 +39,7 @@ class ApiHandler:
     def get_weather(self, location):
         """
         Retrieves the current weather for a given location using OpenWeatherMap API.
-        If no location is provided, defaults to London.
+        If no location is provided, defaults to Atlanta,Ga.
         """
         if not self.weather_api_key:
             print("Weather API key not found in config.")
