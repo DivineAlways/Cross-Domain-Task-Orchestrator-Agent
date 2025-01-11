@@ -80,16 +80,31 @@ class ApiHandler:
             encoded_location = quote(formatted_location)
             print(f"Encoded location: '{encoded_location}'")
             
+            # Test API key first
+            test_url = f"https://api.openweathermap.org/data/2.5/weather?q=London&appid={self.weather_api_key}"
+            test_response = requests.get(test_url)
+            if test_response.status_code == 401:
+                print("ERROR: Invalid API key or unauthorized access")
+                return None
+            
+            # Make geocoding request
             geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={encoded_location}&limit=1&appid={self.weather_api_key}"
-            print(f"Geocoding URL: {geocoding_url}")
+            print(f"Making geocoding request...")
             geo_response = requests.get(geocoding_url)
-            geo_response.raise_for_status()
+            
+            if geo_response.status_code != 200:
+                print(f"Geocoding API error: {geo_response.status_code}")
+                print(f"Response: {geo_response.text}")
+                return None
+                
             location_data = geo_response.json()
             
             if not location_data:
-                print(f"Location not found: {location}")
-                print("For countries, try adding a major city, e.g. 'Tokyo, Japan'")
-                print("For US locations, add the state, e.g. 'Atlanta, GA'")
+                print(f"Location '{location}' not found")
+                print("Tips:")
+                print("- For US cities, use format: 'City, ST' (e.g. 'Atlanta, GA')")
+                print("- For international cities, try: 'City, Country' (e.g. 'London, UK')")
+                print("- Check spelling and try again")
                 return None
                 
             lat = location_data[0]['lat']
