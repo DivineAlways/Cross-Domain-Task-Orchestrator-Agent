@@ -65,19 +65,23 @@ class ApiHandler:
             # Clean up the location string
             location = location.strip()
             
+            # Debug print
+            print(f"Processing location: '{location}'")
+            
             # For US locations, ensure proper format: "City, ST"
             if ',' in location:
                 city, state = [part.strip() for part in location.split(',', 1)]
-                if len(state) == 2:  # State abbreviation
-                    formatted_location = f"{city},{state}"
-                else:
-                    formatted_location = location
+                formatted_location = f"{city},{state}"
+                print(f"Split into city: '{city}', state: '{state}'")
             else:
                 formatted_location = location
                 
             # URL encode the entire location string
-            formatted_location = quote(formatted_location)
-            geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={formatted_location}&limit=1&appid={self.weather_api_key}"
+            encoded_location = quote(formatted_location)
+            print(f"Encoded location: '{encoded_location}'")
+            
+            geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={encoded_location}&limit=1&appid={self.weather_api_key}"
+            print(f"Geocoding URL: {geocoding_url}")
             geo_response = requests.get(geocoding_url)
             geo_response.raise_for_status()
             location_data = geo_response.json()
