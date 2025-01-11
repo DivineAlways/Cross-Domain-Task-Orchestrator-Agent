@@ -48,7 +48,12 @@ class ApiHandler:
         if location is None:
             location = self.default_location
         if not self.weather_api_key:
-            print("Weather API key not found in config.")
+            print("ERROR: Weather API key not configured!")
+            print("Please follow these steps:")
+            print("1. Sign up at https://openweathermap.org/api")
+            print("2. Get your API key from your account")
+            print("3. Add it to cross_domain_agent/config/config.yaml")
+            print("   weather_api_key: \"your-api-key-here\"")
             return None
         
         # Replace spaces with + for URL encoding
