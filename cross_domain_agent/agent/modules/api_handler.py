@@ -2,7 +2,10 @@ import requests
 import yaml
 
 class ApiHandler:
-    def __init__(self, config_path="config/config.yaml", default_location='Atlanta,GA'):
+    def __init__(self, config_path=None, default_location='Atlanta,GA'):
+        if config_path is None:
+            import os.path
+            config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'config', 'config.yaml')
         with open(config_path, 'r') as file:
             config = yaml.safe_load(file)
         self.base_url = config['api_base_url']

@@ -1,7 +1,10 @@
 import yaml
 
 class OmniverseInterface:
-    def __init__(self, config_path="config/config.yaml"):
+    def __init__(self, config_path=None):
+        if config_path is None:
+            import os.path
+            config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'config', 'config.yaml')
         with open(config_path, 'r') as file:
             config = yaml.safe_load(file)
         self.server_address = config['omniverse_server']
