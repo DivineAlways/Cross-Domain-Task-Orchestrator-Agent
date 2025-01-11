@@ -28,10 +28,22 @@ class Agent:
             print(f"Task Plan: {plan}")
 
             # 3. Execute the plan
-            self.execute_plan(plan)
+            if "weather" in user_input.lower():
+                self.get_weather(user_input)
+            else:
+                self.execute_plan(plan)
 
             # 4. Provide feedback
             print("Task completed.")
+
+    def get_weather(self, user_input):
+        print("Getting weather information...")
+        # Placeholder for weather API call
+        api_response = self.api_handler.send_request("/weather", method="GET", params={"city": "London"})
+        if api_response:
+            print(f"Weather in London: {api_response}")
+        else:
+            print("Could not retrieve weather information.")
 
     def execute_plan(self, plan):
         for step in plan:

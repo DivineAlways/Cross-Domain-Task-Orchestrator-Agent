@@ -1,0 +1,2 @@
+api_base_url: "https://api.example.com"
+omniverse_server: "localhost:8080"
