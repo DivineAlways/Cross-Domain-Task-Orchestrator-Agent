@@ -51,6 +51,37 @@ Response: get_time
         """
         Extracts entities from the user input.
         """
-        print(f"Extracting entities for: {user_input}")
-        # Placeholder for entity extraction logic
-        return {"example_entity": "example_value"}
+        import re
+        import json
+
+        prompt = f"""
+You are an entity extraction system.
+Identify and extract entities from the following user input:
+"{user_input}"
+
+Extract entities for the following types:
+- location
+- date
+- time
+
+Respond with a JSON formatted string. For example:
+Input: What's the weather in London tomorrow?
+Response: {{"location": "London", "date": "tomorrow"}}
+
+Input: Set an alarm for 7 AM.
+Response: {{"time": "7 AM"}}
+
+Input: No entities here.
+Response: {{}}
+"""
+        response = self.model.generate_content(prompt)
+        json_match = re.search(r"\{.*\}", response.text, re.DOTALL)
+        if json_match:
+            try:
+                return json.loads(json_match.group(0))
+            except json.JSONDecodeError:
+                print("Error: Invalid JSON format in entity extraction response.")
+                return {}
+        else:
+            print("Error: No JSON found in entity extraction response.")
+            return {}
