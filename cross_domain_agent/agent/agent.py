@@ -76,7 +76,8 @@ class Agent:
                 time.sleep(1)
             elif action == "get_weather":
                 # Example: Get weather using API handler
-                weather_response = self.api_handler.get_weather("London")
+                location = params.get("location", "London")  # Default to London if no location is provided
+                weather_response = self.api_handler.get_weather(location)
                 print(f"Weather response: {weather_response}")
             elif action == "book_flight":
                 destination = params.get("destination")
