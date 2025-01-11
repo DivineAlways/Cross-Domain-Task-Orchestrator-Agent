@@ -1,16 +1,17 @@
-from agent.modules import NLPModule, TaskPlanner, ApiHandler, OmniverseInterface
+from agent.modules import TaskPlanner, ApiHandler, OmniverseInterface, GeminiModule
 import time
 
 class Agent:
     def __init__(self):
-        self.nlp_module = NLPModule()
+        self.nlp_module = GeminiModule()
         self.task_planner = TaskPlanner()
         self.api_handler = ApiHandler()
         self.omniverse_interface = OmniverseInterface()
+        self.omniverse_address = self.omniverse_interface.server_address
 
     def run(self):
         print("Agent is running...")
-        self.omniverse_interface.connect()
+        self.omniverse_interface.connect(self.omniverse_address)
         while True:
             user_input = input("Enter your request: ")
             if user_input.lower() == "exit":
