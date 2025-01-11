@@ -9,8 +9,19 @@ class TaskPlanner:
         For now, this is a simplified example.
         """
         print(f"Creating plan for request: {parsed_request}")
+        intent = parsed_request.get("intent")
+        entities = parsed_request.get("entities", {})
 
-        if "move object" in parsed_request.lower():
+        if intent == "book_flight":
+            plan = [{"action": "book_flight", "params": {
+                "destination": entities.get("location"),
+                "date": entities.get("date")
+            }}]
+        elif intent == "get_time":
+            plan = [{"action": "get_current_time", "params": {}}]
+        elif intent == "general_query":
+            plan = [{"action": "respond_to_query", "params": {}}]
+        elif "move object" in parsed_request.lower():
             plan = [
                 {"action": "identify_object", "params": {}},
                 {"action": "calculate_path", "params": {}},
