@@ -56,9 +56,22 @@ class ApiHandler:
             print("   weather_api_key: \"your-api-key-here\"")
             return None
         
-        # Replace spaces with + for URL encoding
-        formatted_location = location.replace(' ', '+')
-        weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={formatted_location}&appid={self.weather_api_key}&units=metric"
+        # First get coordinates for the location
+        geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid={self.weather_api_key}"
+        try:
+            geo_response = requests.get(geocoding_url)
+            geo_response.raise_for_status()
+            location_data = geo_response.json()
+            
+            if not location_data:
+                print(f"Location not found: {location}")
+                return None
+                
+            lat = location_data[0]['lat']
+            lon = location_data[0]['lon']
+            
+            # Now get weather using coordinates
+            weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={self.weather_api_key}&units=metric"
         try:
             response = requests.get(weather_url)
             response.raise_for_status()
