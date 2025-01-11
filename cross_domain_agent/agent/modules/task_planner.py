@@ -12,7 +12,13 @@ class TaskPlanner:
         intent = parsed_request.get("intent")
         entities = parsed_request.get("entities", {})
 
-        if intent == "book_flight":
+        if "move object" in user_input.lower():
+            plan = [
+                {"action": "identify_object", "params": {}},
+                {"action": "calculate_path", "params": {}},
+                {"action": "move_object", "params": {}}
+            ]
+        elif intent == "book_flight":
             plan = [{"action": "book_flight", "params": {
                 "destination": entities.get("location"),
                 "date": entities.get("date")
