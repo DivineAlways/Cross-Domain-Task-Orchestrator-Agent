@@ -51,7 +51,9 @@ class ApiHandler:
             print("Weather API key not found in config.")
             return None
         
-        weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={self.weather_api_key}&units=metric"
+        # Replace spaces with + for URL encoding
+        formatted_location = location.replace(' ', '+')
+        weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={formatted_location}&appid={self.weather_api_key}&units=metric"
         try:
             response = requests.get(weather_url)
             response.raise_for_status()
