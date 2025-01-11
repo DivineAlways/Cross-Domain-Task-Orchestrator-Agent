@@ -42,6 +42,18 @@ The agent understands several types of requests:
 3. Flight Booking (Placeholder)
    - "Book a flight"
 
+4. Alarm Setting
+   - "Set an alarm for 6 AM"
+   - "Wake me up at 7 tomorrow"
+
+5. Restaurant Search
+   - "Find Italian restaurants"
+   - "Where can I eat sushi?"
+
+6. Music Control
+   - "Play some jazz"
+   - "Play my favorite playlist"
+
 ### Configuration
 
 The agent uses a configuration file located at `cross_domain_agent/config/config.yaml` for API keys and server settings.
