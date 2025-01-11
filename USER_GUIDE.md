@@ -32,8 +32,13 @@ python -m cross_domain_agent.main --location "New York,NY"
 The agent understands several types of requests:
 
 1. Weather Queries
-   - "What is the weather?"
-   - "What's the weather like?"
+   - "What is the weather?" (uses default location)
+   - "What's the weather in [location]?"
+   
+   Location formats:
+   - US cities: "City, ST" (e.g., "Atlanta, GA")
+   - International cities: "City, Country" (e.g., "Paris, France")
+   - UK cities: "City, GB" (e.g., "London, GB")
 
 2. Time Queries
    - "What time is it?"

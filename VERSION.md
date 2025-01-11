@@ -1,5 +1,13 @@
 # Version History
 
+## v0.1.1 (2024-01-11)
+- Improved weather location handling:
+  - Better support for US city-state format
+  - Added international city support
+  - Proper handling of UK locations with GB country code
+  - Enhanced error messages and location formatting
+  - Fixed geocoding API integration
+  
 ## v0.1.0 (2024-01-11)
 - Initial release
 - Basic agent functionality with:
