@@ -2,4 +2,4 @@ api_base_url: "https://api.example.com"
 omniverse_server: "localhost:8080"
 # Get your API key from: https://openweathermap.org/api
 # Replace this with your actual OpenWeatherMap API key
-weather_api_key: ""
+weather_api_key: "f30bc9ab652e94968f0f91fe87e6d3f0"
