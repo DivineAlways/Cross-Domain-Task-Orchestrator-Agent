@@ -1,4 +1,4 @@
-from agent.modules import TaskPlanner, ApiHandler, OmniverseInterface, nlp_module
+from cross_domain_agent.agent.modules import TaskPlanner, ApiHandler, OmniverseInterface, nlp_module
 import time
 import datetime
 

@@ -1,4 +1,4 @@
-from agent.agent import Agent
+from cross_domain_agent.agent.agent import Agent
 import argparse
 
 def main():
