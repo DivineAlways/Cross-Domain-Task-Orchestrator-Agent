@@ -27,7 +27,7 @@ class Agent:
 
             # 2. Create a task plan
             parsed_request = {"intent": intent, "entities": entities}
-            plan = self.task_planner.create_plan(parsed_request)
+            plan = self.task_planner.create_plan(parsed_request, user_input)
             print(f"Task Plan: {plan}")
 
             # 3. Execute the plan
