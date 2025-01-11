@@ -2,13 +2,14 @@ import requests
 import yaml
 
 class ApiHandler:
-    def __init__(self, config_path="config/config.yaml"):
+    def __init__(self, config_path="config/config.yaml", default_location='Atlanta,GA'):
         with open(config_path, 'r') as file:
             config = yaml.safe_load(file)
         self.base_url = config['api_base_url']
         # Placeholder for authentication logic
         self.auth_token = None
         self.weather_api_key = config.get('weather_api_key')
+        self.default_location = default_location
 
     def authenticate(self):
         """
@@ -36,11 +37,13 @@ class ApiHandler:
             print(f"API request failed: {e}")
             return None
 
-    def get_weather(self, location):
+    def get_weather(self, location=None):
         """
         Retrieves the current weather for a given location using OpenWeatherMap API.
-        If no location is provided, defaults to Atlanta,Ga.
+        If no location is provided, uses the default location.
         """
+        if location is None:
+            location = self.default_location
         if not self.weather_api_key:
             print("Weather API key not found in config.")
             return None

@@ -3,10 +3,10 @@ import time
 import datetime
 
 class Agent:
-    def __init__(self):
+    def __init__(self, default_location='Atlanta,GA'):
         self.nlp_module = nlp_module.GeminiModule()
         self.task_planner = TaskPlanner()
-        self.api_handler = ApiHandler()
+        self.api_handler = ApiHandler(default_location=default_location)
         self.omniverse_interface = OmniverseInterface()
         self.omniverse_address = self.omniverse_interface.server_address
 
