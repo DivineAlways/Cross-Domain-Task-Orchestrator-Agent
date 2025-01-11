@@ -13,7 +13,7 @@ class GeminiModule:
 
     def generate_response(self, prompt):
         response = self.model.generate_content(prompt)
-        return response.textclass GeminiModule:
+        return response.text
     def __init__(self):
         print("Gemini module initialized")
 
@@ -55,7 +55,7 @@ class GeminiModule:
 
     def generate_response(self, prompt):
         response = self.model.generate_content(prompt)
-        return response.textclass GeminiModule:
+        return response.text
     def __init__(self):
         print("Gemini module initialized")
 
