@@ -27,6 +27,10 @@ class TaskPlanner:
                 {"action": "call_api", "params": {}},
                 {"action": "process_api_response", "params": {}}
             ]
+        elif "what is the weather" in parsed_request.lower():
+            plan = [
+                {"action": "get_weather", "params": {}}
+            ]
         else:
             plan = [{"action": "unknown_task", "params": {}}]
         return plan

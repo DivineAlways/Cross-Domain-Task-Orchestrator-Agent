@@ -72,6 +72,10 @@ class Agent:
                 # Example: Process API response
                 print("Processing API response...")
                 time.sleep(1)
+            elif action == "get_weather":
+                # Example: Get weather using API handler
+                weather_response = self.api_handler.get_weather("London")
+                print(f"Weather response: {weather_response}")
             elif action == "unknown_task":
                 print("Unknown task.")
             else:

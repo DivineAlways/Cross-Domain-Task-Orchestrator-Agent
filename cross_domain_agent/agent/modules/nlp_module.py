@@ -32,11 +32,3 @@ class GeminiModule:
         print(f"Extracting entities for: {user_input}")
         # Placeholder for entity extraction logic
         return {"example_entity": "example_value"}
-
-    def generate_response(self, text):
-        """
-        Generates a response based on the given text.
-        """
-        print(f"Generating response for: {text}")
-        # Placeholder for response generation logic
-        return "This is an example response."
