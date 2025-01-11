@@ -21,9 +21,33 @@ class GeminiModule:
         """
         Recognizes the intent of the user input.
         """
-        print(f"Recognizing intent for: {user_input}")
-        # Placeholder for intent recognition logic
-        return "example_intent"
+        prompt = f"""
+You are an intent recognition system.
+Identify the intent of the following user input:
+"{user_input}"
+
+Possible intents are:
+- get_weather
+- book_flight
+- get_time
+- general_query
+- unknown
+
+Respond with the intent only, no other text. For example:
+Input: What's the weather in London?
+Response: get_weather
+
+Input: Book me a flight to New York tomorrow.
+Response: book_flight
+
+Input: Hi, how are you?
+Response: general_query
+
+Input: What's the current time?
+Response: get_time
+"""
+        response = self.model.generate_content(prompt)
+        return response.text.strip()
 
     def extract_entities(self, user_input):
         """
