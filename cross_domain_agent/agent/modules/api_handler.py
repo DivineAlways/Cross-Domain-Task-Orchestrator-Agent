@@ -36,9 +36,10 @@ class ApiHandler:
             print(f"API request failed: {e}")
             return None
 
-    def get_weather(self, location):
+    def get_weather(self, location="London"):
         """
         Retrieves the current weather for a given location using OpenWeatherMap API.
+        If no location is provided, defaults to London.
         """
         if not self.weather_api_key:
             print("Weather API key not found in config.")
