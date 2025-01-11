@@ -3,7 +3,7 @@ class TaskPlanner:
     def __init__(self):
         print("Task planner initialized")
 
-    def create_plan(self, parsed_request):
+    def create_plan(self, parsed_request, user_input):
         """
         Generates a sequence of steps to achieve the goal based on the parsed request.
         For now, this is a simplified example.
