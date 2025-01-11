@@ -57,14 +57,17 @@ class ApiHandler:
             return None
         
         try:
-            # First get coordinates for the location
-            geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid={self.weather_api_key}"
+            # Format location query and get coordinates
+            formatted_location = location.replace(' ', '+')
+            geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={formatted_location}&limit=1&appid={self.weather_api_key}"
             geo_response = requests.get(geocoding_url)
             geo_response.raise_for_status()
             location_data = geo_response.json()
             
             if not location_data:
                 print(f"Location not found: {location}")
+                print("For countries, try adding a major city, e.g. 'Tokyo, Japan'")
+                print("For US locations, add the state, e.g. 'Atlanta, GA'")
                 return None
                 
             lat = location_data[0]['lat']
