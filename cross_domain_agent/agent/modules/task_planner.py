@@ -21,6 +21,27 @@ class TaskPlanner:
             plan = [{"action": "get_current_time", "params": {}}]
         elif intent == "general_query":
             plan = [{"action": "respond_to_query", "params": {}}]
+        elif "move object" in user_input.lower():
+            plan = [
+                {"action": "identify_object", "params": {}},
+                {"action": "calculate_path", "params": {}},
+                {"action": "move_object", "params": {}}
+            ]
+        elif "summarize" in user_input.lower():
+            plan = [
+                {"action": "get_text", "params": {}},
+                {"action": "summarize_text", "params": {}}
+            ]
+        elif "call api" in user_input.lower():
+            plan = [
+                {"action": "prepare_api_request", "params": {}},
+                {"action": "call_api", "params": {}},
+                {"action": "process_api_response", "params": {}}
+            ]
+        elif "what is the weather" in user_input.lower():
+            plan = [
+                {"action": "get_weather", "params": {}}
+            ]
         else:
             plan = [{"action": "unknown_task", "params": {}}]
         return plan
