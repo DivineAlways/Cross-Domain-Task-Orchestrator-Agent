@@ -14,8 +14,6 @@ class GeminiModule:
     def generate_response(self, prompt):
         response = self.model.generate_content(prompt)
         return response.text
-    def __init__(self):
-        print("Gemini module initialized")
 
     def recognize_intent(self, user_input):
         """
