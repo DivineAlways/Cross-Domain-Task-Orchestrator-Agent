@@ -56,9 +56,9 @@ class ApiHandler:
             print("   weather_api_key: \"your-api-key-here\"")
             return None
         
-        # First get coordinates for the location
-        geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid={self.weather_api_key}"
         try:
+            # First get coordinates for the location
+            geocoding_url = f"http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid={self.weather_api_key}"
             geo_response = requests.get(geocoding_url)
             geo_response.raise_for_status()
             location_data = geo_response.json()
@@ -72,10 +72,10 @@ class ApiHandler:
             
             # Now get weather using coordinates
             weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={self.weather_api_key}&units=metric"
-        try:
             response = requests.get(weather_url)
             response.raise_for_status()
             return response.json()
+            
         except requests.exceptions.RequestException as e:
             print(f"Weather API request failed: {e}")
             return None
