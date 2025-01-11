@@ -1,5 +1,6 @@
 from agent.modules import TaskPlanner, ApiHandler, OmniverseInterface, nlp_module
 import time
+import datetime
 
 class Agent:
     def __init__(self):
@@ -77,6 +78,16 @@ class Agent:
                 # Example: Get weather using API handler
                 weather_response = self.api_handler.get_weather("London")
                 print(f"Weather response: {weather_response}")
+            elif action == "book_flight":
+                destination = params.get("destination")
+                date = params.get("date")
+                print(f"Booking a flight to {destination} on {date}...")
+            elif action == "get_current_time":
+                now = datetime.datetime.now()
+                current_time = now.strftime("%H:%M:%S")
+                print(f"The current time is: {current_time}")
+            elif action == "respond_to_query":
+                print("I'm not able to answer that yet, but I'm learning!")
             elif action == "unknown_task":
                 print("Unknown task.")
             else:
